@@ -1,6 +1,6 @@
 //
 //  TestModel.swift
-//  
+//
 //
 //  Created by Alexey Rogatkin
 //
@@ -23,4 +23,3 @@ struct Task: Codable {
     let assignee: [Person]
     let status: Status
 }
-

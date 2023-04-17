@@ -1,14 +1,11 @@
-import XCTest
 @testable import Messaging
-
-
+import XCTest
 
 final class JSONDecodableDispatcherTests: XCTestCase {
-    
     func testCommonUsage() throws {
         let encoder = JSONEncoder()
         let decoder = JSONDecoder()
-        
+
         let messages = try [
             encoder.encode(message0),
             encoder.encode(message1),
@@ -18,12 +15,12 @@ final class JSONDecodableDispatcherTests: XCTestCase {
             encoder.encode(message5),
             encoder.encode(message6),
             encoder.encode(message7),
-            encoder.encode(message8)
+            encoder.encode(message8),
         ]
-        
+
         let recorder = Recorder()
         let dispatcher = JSONDecodableDispatcher(decoder: decoder)
-        
+
         let removedAllAssigneeHandler = RemovedAllAssigneeHandler(recorder)
         dispatcher.register(handler: removedAllAssigneeHandler)
         let firstSingleAssignHandler = FirstSingleAssignHandler(recorder)
@@ -41,18 +38,18 @@ final class JSONDecodableDispatcherTests: XCTestCase {
         for message in messages {
             results.append(dispatcher.handle(incomingMessage: message))
         }
-        
-        if case .handled(_, let handler) = results[0] {
+
+        if case let .handled(_, handler) = results[0] {
             XCTAssert(handler is ChangeTitleHandler)
         } else {
             XCTFail()
         }
-        if case .handled(_, let handler) = results[1] {
+        if case let .handled(_, handler) = results[1] {
             XCTAssert(handler is RemovedAllAssigneeHandler)
         } else {
             XCTFail()
         }
-        if case .handled(_, let handler) = results[2] {
+        if case let .handled(_, handler) = results[2] {
             XCTAssert(handler is FirstSingleAssignHandler)
         } else {
             XCTFail()
@@ -67,17 +64,17 @@ final class JSONDecodableDispatcherTests: XCTestCase {
         } else {
             XCTFail()
         }
-        if case .handled(_, let handler) = results[5] {
+        if case let .handled(_, handler) = results[5] {
             XCTAssert(handler is ChangeStatusToDoneHandler)
         } else {
             XCTFail()
         }
-        if case .handled(_, let handler) = results[6] {
+        if case let .handled(_, handler) = results[6] {
             XCTAssert(handler is ChangeStatusToInProgressHandler)
         } else {
             XCTFail()
         }
-        if case .handled(_, let handler) = results[7] {
+        if case let .handled(_, handler) = results[7] {
             XCTAssert(handler is PingPongHandler)
         } else {
             XCTFail()
@@ -88,7 +85,6 @@ final class JSONDecodableDispatcherTests: XCTestCase {
             XCTFail()
         }
     }
-    
 }
 
 let message0 = ChangeTitleMessage(task: Task(title: "title",
