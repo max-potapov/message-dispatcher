@@ -11,7 +11,7 @@ public protocol DecodableDispatcherConnector {
     /// Method called when new encoded message arrive in the system
     ///
     /// - Parameters:
-    ///     - incomingMessage: Message that encoded in Data and should be dispatched to appropiate handler with matched type
+    ///     - incomingMessage: Message that encoded in Data and should be dispatched to appropriate handler with matched type
     ///
     /// - Returns: The status of handling
     ///
